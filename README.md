@@ -1,35 +1,51 @@
-If the python code can't access the virtual environment
 
-Please install the virtual env manually using
 
-'python -m venv {name}'
+### **1. Create Virtual Environment**
 
-And to activate the env use:
+```bash
+python -m venv venv
+```
 
-'.\venv\Scripts\activate'; for windows
+### **2. Activate Virtual Environment**
 
-'source
+* **Windows (PowerShell / CMD):**
 
-venv/bin/activate'; for Mac
+```bash
+.\venv\Scripts\activate
+```
 
-And install the libraries mentioned below
+* **Mac / Linux:**
 
-All the libraries requried to run the application:
+```bash
+source venv/bin/activate
+```
 
-1. streamlit
+---
 
-2. google-generativeai
+### **3. Install Required Libraries**
 
-3. python-dotenv
+Once inside the virtual environment, run:
 
-4. langchain
+```bash
+pip install streamlit google-generativeai python-dotenv langchain PyPDF2 faiss-cpu langchain_google_genai
+```
 
-5. PyPDF2
+---
 
-6. faiss-cpu
+### **4. API Key Setup**
 
-7. langchain_google_genai
+* Open the `.env` file in your project.
+* If your API key isn’t working, visit 👉 [Google AI Studio API Keys](https://aistudio.google.com/app/apikey)
+* Copy your new key and replace the old one inside `.env` like this:
 
-To run the app goto Terminal and execute 'streamlit run App.py' command
+```
+GOOGLE_API_KEY=your_new_api_key_here
+```
 
-If at all the API key is not working, please do visit: 'https://aistudio.google.com/app/apikey' and fetch for an API key and replace the key with already existing key in '.env' file
+---
+
+### **5. Run the Application**
+
+```bash
+streamlit run App.py
+```
