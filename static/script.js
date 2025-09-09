@@ -1,10 +1,9 @@
-// Global state
+
 let selectedFile = null;
 let isUploading = false;
 let isTyping = false;
 let messages = [];
 
-// DOM elements
 const uploadButton = document.getElementById('uploadButton');
 const fileInput = document.getElementById('fileInput');
 const dragDropArea = document.getElementById('dragDropArea');
@@ -17,13 +16,13 @@ const progressBar = document.getElementById('progressBar');
 const progressPercent = document.getElementById('progressPercent');
 const chatInput = document.getElementById('chatInput');
 const sendButton = document.getElementById('sendButton');
-// --- ERROR FIX: Changed 'chatMessages' to 'message-content' to match the new HTML ---
+
 const chatMessages = document.getElementById('message-content'); 
 const welcomeMessage = document.getElementById('welcomeMessage');
 const typingIndicator = document.getElementById('typingIndicator');
 const particlesContainer = document.getElementById('particlesContainer');
 
-// Initialize application
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeParticles();
     setupEventListeners();
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateChatState();
 });
 
-// Create floating particles
+
 function initializeParticles() {
     for (let i = 0; i < 9; i++) {
         const particle = document.createElement('div');
@@ -42,14 +41,13 @@ function initializeParticles() {
     }
 }
 
-// Setup all event listeners
+
 function setupEventListeners() {
-    // File upload events
+
     uploadButton.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleFileSelect);
     removeFileButton.addEventListener('click', handleFileRemove);
 
-    // Drag and drop events
     dragDropArea.addEventListener('click', () => {
         if (!selectedFile) fileInput.click();
     });
@@ -58,12 +56,11 @@ function setupEventListeners() {
     dragDropArea.addEventListener('dragleave', handleDragLeave);
     dragDropArea.addEventListener('drop', handleDrop);
 
-    // Chat events
+
     chatInput.addEventListener('input', updateSendButton);
     chatInput.addEventListener('keypress', handleKeyPress);
     sendButton.addEventListener('click', handleSendMessage);
 
-    // Sample question buttons
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('sample-question-btn')) {
             const question = e.target.getAttribute('data-question');
@@ -75,13 +72,11 @@ function setupEventListeners() {
     });
 }
 
-// --- NEW: All logic for the custom scrollbar ---
 function setupCustomScrollbar() {
     const content = document.getElementById('message-content');
     const track = document.getElementById('custom-scrollbar-track');
     const thumb = document.getElementById('custom-scrollbar-thumb');
 
-    // Add a check to ensure elements exist before proceeding
     if (!content || !track || !thumb) {
         console.error("Custom scrollbar elements not found. Aborting setup.");
         return;
@@ -131,7 +126,6 @@ function setupCustomScrollbar() {
     
     window.addEventListener('resize', updateThumb);
     
-    // Use a MutationObserver to update the scrollbar when new messages are added
     const observer = new MutationObserver(updateThumb);
     observer.observe(content, { childList: true, subtree: true });
 
@@ -139,7 +133,6 @@ function setupCustomScrollbar() {
 }
 
 
-// File handling functions
 function handleFileSelect(event) {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -252,7 +245,6 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-// Chat functions
 function handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -328,7 +320,7 @@ function renderMessage(message) {
         `;
     }
     
-    // Append the new message, but exclude the typing indicator from being a "message"
+  
     const contentArea = typingIndicator.parentNode;
     contentArea.insertBefore(messageElement, typingIndicator);
     
@@ -375,7 +367,7 @@ function clearMessages() {
     const existingMessages = chatMessages.querySelectorAll('.chat-message');
     existingMessages.forEach(msg => msg.remove());
     
-    // Make the welcome message visible again
+
     welcomeMessage.style.display = 'flex';
 }
 
@@ -408,4 +400,5 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
 
