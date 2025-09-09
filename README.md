@@ -99,6 +99,7 @@ uvicorn app:app --reload
 
 Then open your browser and go to:
 [http://127.0.0.1:8000](http://127.0.0.1:8000)
+live demo : https://studyassistant-dzq4.onrender.com/
 
 ---
 
