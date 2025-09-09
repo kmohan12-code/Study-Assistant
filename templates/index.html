@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Q&A Assistant</title>
+    
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="floating-particles" id="particlesContainer"></div>
+
+    <div class="min-h-screen">
+        <div class="container">
+            <div class="glass-card left-panel">
+                <div class="panel-content">
+                    <div class="header">
+                        <h1 class="title">ASK Your Assistant</h1>
+                        <p class="subtitle">Upload and analyze your PDFs with AI-powered insights</p>
+                    </div>
+
+                    <button class="upload-button" id="uploadButton" data-testid="button-upload-pdf">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Upload PDF
+                    </button>
+
+                    <div class="drag-drop-area" id="dragDropArea" data-testid="area-drag-drop">
+                        <div class="file-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                            </svg>
+                        </div>
+                        <div class="drag-text">
+                            <p class="drag-title">Drag & drop your PDF</p>
+                            <p class="drag-subtitle">or click to browse files</p>
+                        </div>
+                        <div class="file-support">Supports PDF files up to 50MB</div>
+                    </div>
+
+                    <div class="file-display-container hidden" id="fileDisplayContainer" data-testid="container-file-display">
+                        <div class="file-info">
+                            <div class="file-details">
+                                <svg class="file-type-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                </svg>
+                                <div class="file-text">
+                                    <p class="file-name" id="fileName" data-testid="text-file-name"></p>
+                                    <p class="file-size" id="fileSize" data-testid="text-file-size"></p>
+                                </div>
+                            </div>
+                            <button class="remove-file-button" id="removeFileButton" data-testid="button-remove-file">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="upload-progress hidden" id="uploadProgress" data-testid="container-upload-progress">
+                            <div class="progress-text">
+                                <span>Uploading...</span>
+                                <span class="progress-percent" id="progressPercent" data-testid="text-progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="progressBar" data-testid="bar-upload-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="file" id="fileInput" accept=".pdf" class="hidden" data-testid="input-file">
+                </div>
+            </div>
+
+            <div class="glass-card right-panel">
+                <div class="panel-content">
+                    <div class="chat-header">
+                        <div class="chat-title-section">
+                            <header style="display: flex; align-items: center; gap: 10px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 24px; height: 24px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                                </svg>
+                                <h2 class="chat-title">PDF Q&A</h2>
+                            </header>
+                            <p class="chat-subtitle">Intelligent insights from your documents</p>
+                        </div>
+                    </div>
+
+                    <div id="chat-container">
+                        <div id="message-content">
+                            <div class="welcome-message" id="welcomeMessage">
+                                <div class="ai-name">AI Assistant</div>
+                                <div class="welcome-content">
+                                    <p class="welcome-title"> <strong>Welcome to PDF Assistant!</strong></p>
+                                    <p class="welcome-text">Upload a PDF document to get started. I can help you analyze content, answer questions, extract key information, and provide intelligent insights from your documents.</p>
+                                    <div class="sample-questions">
+                                        <p class="sample-title">Try asking questions like:</p>
+                                        <div class="question-buttons">
+                                            <button class="sample-question-btn" data-question="What are the main findings?" data-testid="button-sample-question-0">"What are the main findings?"</button>
+                                            <button class="sample-question-btn" data-question="Summarize this document" data-testid="button-sample-question-1">"Summarize this document"</button>
+                                            <button class="sample-question-btn" data-question="Extract key statistics" data-testid="button-sample-question-2">"Extract key statistics"</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="typing-indicator-container hidden" id="typingIndicator" data-testid="indicator-typing">
+                                <div class="ai-avatar-small">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                                <div class="typing-text">
+                                    AI is typing
+                                    <div class="typing-dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        <div id="custom-scrollbar-track">
+                            <div id="custom-scrollbar-thumb"></div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="input-container">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Upload a document first..." disabled data-testid="input-chat-message">
+                        </div>
+                        <button class="send-button" id="sendButton" disabled data-testid="button-send-message">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
