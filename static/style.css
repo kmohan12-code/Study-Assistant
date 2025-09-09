@@ -693,7 +693,6 @@ body {
     text-align: center;
   }
 }
-/* Chat container scroll fix */
 .min-h-screen {
     height: 100vh; /* Fill the viewport height */
 }
@@ -718,36 +717,33 @@ body {
 .panel-content {
     display: flex;
     flex-direction: column;
-    height: 100%; /* Stretch content inside right panel */
+    height: 100%; 
 }
 
 #chat-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* Allows shrinking in flex layout */
+    min-height: 0; 
 }
 
 #message-content {
     flex: 1;
-    overflow-y: auto; /* Enables vertical scrolling when messages overflow */
-    min-height: 0; /* Allows the area to shrink properly */
+    overflow-y: auto; 
+    min-height: 0; 
 }
-
-/* Style the scrollbar track (the background) */
 #message-content::-webkit-scrollbar-track {
     border-radius: 8px;
-    background-color: #2d2d3a; /* optional: darker background for track */
+    background-color: #2d2d3a; 
 }
 
-/* Style the scrollbar thumb (the draggable part) */
 #message-content::-webkit-scrollbar-thumb {
     border-radius: 8px;
 }
 
-/* Style the scrollbar itself */
 #message-content::-webkit-scrollbar {
-    width: 6px; /* smaller width of the scrollbar */
-    height: 6px; /* smaller height if horizontal scrollbar appears */
+    width: 6px; 
+    height: 6px; 
 }
+
 
